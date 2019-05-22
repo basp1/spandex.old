@@ -412,7 +412,7 @@ namespace spandex::test
 		{
 			assert(x.size() == y.size());
 
-			rope::Range iota(x.size());
+			rope::Range iota((int)x.size());
 			double diff = std::sqrt(std::accumulate(iota.begin(), iota.end(), 0.0,
 				[&](double acc, int i) { return acc + std::pow(x[i] - y[i], 2.0); }));
 
