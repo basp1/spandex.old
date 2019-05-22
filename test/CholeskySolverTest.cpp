@@ -4,7 +4,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #include <rope/CommonGraph.h>
-#include <rope/IntBox.h>
+#include <rope/Range.h>
 #include <spandex/SparseMatrix.h>
 #include <spandex/CholeskySolver.h>
 
@@ -412,7 +412,7 @@ namespace spandex::test
 		{
 			assert(x.size() == y.size());
 
-			rope::IntBox iota(x.size());
+			rope::Range iota(x.size());
 			double diff = std::sqrt(std::accumulate(iota.begin(), iota.end(), 0.0,
 				[&](double acc, int i) { return acc + std::pow(x[i] - y[i], 2.0); }));
 
