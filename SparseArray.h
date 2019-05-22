@@ -40,6 +40,15 @@ namespace spandex
 		{
 		}
 
+		SparseArray(const std::vector<T>& init) : SparseArray((int)init.size())
+		{
+			int size = (int)init.size();
+			for (int i = 0; i < size; i++)
+			{
+				Insert(i, init[i]);
+			}
+		}
+
 		SparseArray(int size, std::initializer_list<std::pair<int, T>> init) : SparseArray(size)
 		{
 			for (auto& item : init)

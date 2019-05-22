@@ -187,5 +187,13 @@ namespace spandex::test
 
 			Assert::IsFalse(b.Equals(a));
 		}
+
+		TEST_METHOD(Equals_5)
+		{
+			spandex::SparseArray<char> a(4, { { 0, 'a' }, { 1, 'b'}, {2, 'c'}, {3, 'd'} });
+			spandex::SparseArray<char> b({ 'a', 'b', 'c', 'd' });
+
+			Assert::IsTrue(a.Equals(b));
+		}
 	};
 }

@@ -356,7 +356,7 @@ namespace spandex::test
 
 			auto x = solver.Solve(a, b);
 
-			auto u = solver.Update(SparseArray<double>(3, { {0, 7.0}, {1, -5.0}, {2, 1.0} }), 9);
+			auto u = solver.Update(SparseArray<double>({ 7.0, -5.0, 1.0 }), 9);
 
 			g.AddVertex();
 			g.Insert(3, 0, 7);
