@@ -21,5 +21,5 @@ std::vector<double> b{ 17, 2.89, -3.3 };
 
 auto x = solver.Solve(a, b);
 
-auto u = solver.Update(spandex::SparseArray<double>(3, { {0, 7.0}, {1, -5.0}, {2, 1.0} }), 9);
+auto u = solver.Update(spandex::SparseArray<double>({ 7.0, -5.0, 1.0 }), 9);
 ```
