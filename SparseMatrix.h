@@ -2,6 +2,7 @@
 
 #include <rope/CommonGraph.h>
 #include <rope/IntList.h>
+#include "SparseArray.h"
 
 #include <cassert>
 #include <algorithm>
@@ -351,6 +352,34 @@ namespace spandex
 			}
 
 			return false;
+		}
+
+		SparseArray<T> GetRow(int row) const
+		{
+			assert(row >= 0 && row < rowCount);
+
+			SparseArray<T> vals(columnCount);
+
+			for (int i = rows[row]; i < rows[row + 1]; i++)
+			{
+				vals.Insert(rowsColumns[i], values[positions[i]]);
+			}
+
+			return std::move(vals);
+		}
+
+		SparseArray<T> GetColumn(int column) const
+		{
+			assert(column >= 0 && column < columnCount);
+
+			SparseArray<T> vals(rowCount);
+
+			for (int j = columns[column]; j < columns[column + 1]; j++)
+			{
+				vals.Insert(columnsRows[j], values[j]);
+			}
+
+			return std::move(vals);
 		}
 
 		T GetRowwise(int row, int column) const

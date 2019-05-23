@@ -78,7 +78,81 @@ namespace spandex::test
 			Assert::IsFalse(a.Equals(at));
 		}
 
-		TEST_METHOD(Get_1)
+		TEST_METHOD(GetRow_1)
+		{
+			auto a = spandex::SparseMatrix<int>::FromCSR(4, 4,
+				std::vector<int>{0, 4, 7, 11, 11},
+				std::vector<int>{0, 1, 2, 3, 0, 1, 3, 0, 1, 2, 3},
+				std::vector<int>{10, 11, 12, 13, 20, 21, 23, 30, 31, 32, 33});
+
+			auto row = a.GetRow(0);
+			Assert::AreEqual(4, row.size);
+			Assert::AreEqual(4, row.nnz);
+			Assert::AreEqual(10, row.At(0));
+			Assert::AreEqual(11, row.At(1));
+			Assert::AreEqual(12, row.At(2));
+			Assert::AreEqual(13, row.At(3));
+
+			row = a.GetRow(1);
+			Assert::AreEqual(4, row.size);
+			Assert::AreEqual(3, row.nnz);
+			Assert::AreEqual(20, row.At(0));
+			Assert::AreEqual(21, row.At(1));
+			Assert::AreEqual(23, row.At(3));
+
+			row = a.GetRow(2);
+			Assert::AreEqual(4, row.size);
+			Assert::AreEqual(4, row.nnz);
+			Assert::AreEqual(30, row.At(0));
+			Assert::AreEqual(31, row.At(1));
+			Assert::AreEqual(32, row.At(2));
+			Assert::AreEqual(33, row.At(3));
+
+			row = a.GetRow(3);
+			Assert::AreEqual(4, row.size);
+			Assert::AreEqual(0, row.nnz);
+		}
+
+		TEST_METHOD(GetColumn_1)
+		{
+			auto a = spandex::SparseMatrix<int>::FromCSR(3, 5,
+				std::vector<int>{0, 4, 7, 11},
+				std::vector<int>{0, 1, 2, 3, 0, 1, 3, 0, 1, 2, 3},
+				std::vector<int>{10, 11, 12, 13, 20, 21, 23, 30, 31, 32, 33});
+
+			auto column = a.GetColumn(0);
+			Assert::AreEqual(3, column.size);
+			Assert::AreEqual(3, column.nnz);
+			Assert::AreEqual(10, column.At(0));
+			Assert::AreEqual(20, column.At(1));
+			Assert::AreEqual(30, column.At(2));
+
+			column = a.GetColumn(1);
+			Assert::AreEqual(3, column.size);
+			Assert::AreEqual(3, column.nnz);
+			Assert::AreEqual(11, column.At(0));
+			Assert::AreEqual(21, column.At(1));
+			Assert::AreEqual(31, column.At(2));
+
+			column = a.GetColumn(2);
+			Assert::AreEqual(3, column.size);
+			Assert::AreEqual(2, column.nnz);
+			Assert::AreEqual(12, column.At(0));
+			Assert::AreEqual(32, column.At(2));
+
+			column = a.GetColumn(3);
+			Assert::AreEqual(3, column.size);
+			Assert::AreEqual(3, column.nnz);
+			Assert::AreEqual(13, column.At(0));
+			Assert::AreEqual(23, column.At(1));
+			Assert::AreEqual(33, column.At(2));
+
+			column = a.GetColumn(4);
+			Assert::AreEqual(3, column.size);
+			Assert::AreEqual(0, column.nnz);
+		}
+
+		TEST_METHOD(GetValue_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(3, 4,
 				std::vector<int>{0, 4, 7, 11},
@@ -110,7 +184,7 @@ namespace spandex::test
 			Assert::AreEqual(a.GetColumnwise(2, 0), a.GetRowwise(2, 0));
 		}
 
-		TEST_METHOD(Set_1)
+		TEST_METHOD(SetValue_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(3, 4,
 				std::vector<int>{0, 4, 7, 11},
