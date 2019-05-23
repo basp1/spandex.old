@@ -76,11 +76,11 @@ namespace spandex::test
 			Assert::IsTrue(4 == permuted[1] || 5 == permuted[1]);
 
 			std::sort(permuted.begin(), permuted.end());
-			int uniques = std::unique(permuted.begin(), permuted.end()) - permuted.begin();
+			int uniques = (int)(std::unique(permuted.begin(), permuted.end()) - permuted.begin());
 			Assert::AreEqual(6, uniques);
 
 			std::sort(primary.begin(), primary.end());
-			uniques = std::unique(primary.begin(), primary.end()) - primary.begin();
+			uniques = (int)(std::unique(primary.begin(), primary.end()) - primary.begin());
 			Assert::AreEqual(6, uniques);
 		}
 	};
