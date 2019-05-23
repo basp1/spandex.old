@@ -354,6 +354,20 @@ namespace spandex
 			return false;
 		}
 
+		std::vector<T> GetDiag() const
+		{
+			assert(columnCount == rowCount);
+
+			std::vector<T> vals(rowCount);
+
+			for (int i = 0; i < rowCount; i++)
+			{
+				vals[i] = GetColumnwise(i, i);
+			}
+
+			return std::move(vals);
+		}
+
 		SparseArray<T> GetRow(int row) const
 		{
 			assert(row >= 0 && row < rowCount);
