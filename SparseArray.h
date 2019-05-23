@@ -66,22 +66,22 @@ namespace spandex
 			return items == that.items;
 		}
 
-		Iterator Begin()
+		Iterator begin()
 		{
 			return items.begin();
 		}
 
-		Iterator End()
+		Iterator end()
 		{
 			return items.end();
 		}
 
-		ConstIterator Begin() const
+		ConstIterator begin() const
 		{
 			return items.begin();
 		}
 
-		ConstIterator End() const
+		ConstIterator end() const
 		{
 			return items.end();
 		}
@@ -91,7 +91,7 @@ namespace spandex
 			assert(index < size);
 
 			auto it = LowerBound(index);
-			if (it != End() && !compareFunc(index, *it))
+			if (it != end() && !compareFunc(index, *it))
 			{
 				it->second = value;
 			}
@@ -106,7 +106,7 @@ namespace spandex
 		{
 			assert(index < size);
 
-			return End() != Find(index);
+			return end() != Find(index);
 		}
 
 		void Clear() noexcept
@@ -121,7 +121,7 @@ namespace spandex
 
 			auto it = Find(index);
 
-			if (End() == it)
+			if (end() == it)
 			{
 				return T();
 			}
@@ -135,18 +135,18 @@ namespace spandex
 
 		Iterator LowerBound(int index)
 		{
-			return std::lower_bound(items.begin(), End(), index, compareFunc);
+			return std::lower_bound(items.begin(), end(), index, compareFunc);
 		}
 
 		Iterator Find(int index)
 		{
 			auto it = LowerBound(index);
-			if (it != End() && !compareFunc(index, *it))
+			if (it != end() && !compareFunc(index, *it))
 			{
 				return it;
 			}
 
-			return End();
+			return end();
 		}
 	};
 }

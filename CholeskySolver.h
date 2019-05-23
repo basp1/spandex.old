@@ -70,7 +70,7 @@ namespace spandex
 			assert(ld.rowCount == u.size);
 
 			const T zero = (T)0;
-			for (auto it = u.Begin(); it != u.End(); ++it)
+			for (auto it = u.begin(); it != u.end(); ++it)
 			{
 				if (zero != it->second)
 				{
@@ -365,12 +365,12 @@ namespace spandex
 			const T zero = (T)0;
 			T a = (T)1, b = zero, c = zero;
 			std::vector<T> v(u.size, zero);
-			for (auto it = u.Begin(); it != u.End(); ++it)
+			for (auto it = u.begin(); it != u.end(); ++it)
 			{
 				v[it->first] = it->second;
 			}
 
-			for (auto it = u.Begin(); it != u.End(); ++it)
+			for (auto it = u.begin(); it != u.end(); ++it)
 			{
 				int j = it->first;
 
