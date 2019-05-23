@@ -78,7 +78,7 @@ namespace spandex
 				}
 			}
 
-			Update(ld, perm, u);
+			Update(ld, u);
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
@@ -357,17 +357,17 @@ namespace spandex
 			return std::move(x);
 		}
 
-		static void Update(SparseMatrix<T> & ld, Permutation & perm, const SparseArray<T>& u)
+		static void Update(SparseMatrix<T> & ld, const SparseArray<T>& u)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert(ld.rowCount == u.size);
 
 			const T zero = (T)0;
 			T a = (T)1, b = zero, c = zero;
-			std::vector<T> v(u.size, zero);
+			std::vector<T> vals(u.size, zero);
 			for (auto it = u.begin(); it != u.end(); ++it)
 			{
-				v[it->first] = it->second;
+				vals[it->first] = it->second;
 			}
 
 			for (auto it = u.begin(); it != u.end(); ++it)
@@ -377,7 +377,7 @@ namespace spandex
 				int jj = ld.columns[j];
 
 				T diag = ld.values[jj];
-				T x = v[j];
+				T x = vals[j];
 				b = a + x * x / diag;
 				ld.values[jj] = diag * b / a;
 				c = x / (diag * b);
@@ -387,8 +387,8 @@ namespace spandex
 				{
 					int ii = ld.columnsRows[i];
 
-					v[ii] -= x * ld.values[i];
-					ld.values[i] += c * v[ii];
+					vals[ii] -= x * ld.values[i];
+					ld.values[i] += c * vals[ii];
 				}
 			}
 		}
