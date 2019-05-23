@@ -12,7 +12,7 @@ namespace spandex::test
 	{
 	public:
 
-		TEST_METHOD(FromCSR)
+		TEST_METHOD(FromCSR_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(3, 4,
 				std::vector<int>{0, 4, 7, 11},
@@ -36,7 +36,7 @@ namespace spandex::test
 			Assert::AreEqual(30, a.GetRowwise(2, 0));
 		}
 
-		TEST_METHOD(FromGraph)
+		TEST_METHOD(FromGraph_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(3, 4,
 				std::vector<int>{0, 4, 7, 11},
@@ -62,7 +62,7 @@ namespace spandex::test
 			Assert::IsTrue(b.Equals(a));
 		}
 
-		TEST_METHOD(Transpose)
+		TEST_METHOD(Transpose_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(3, 4,
 				std::vector<int>{0, 4, 7, 11},
@@ -240,7 +240,7 @@ namespace spandex::test
 			Assert::AreEqual(300, a.GetRowwise(2, 0));
 		}
 
-		TEST_METHOD(Contains)
+		TEST_METHOD(Contains_1)
 		{
 			auto a = spandex::SparseMatrix<int>::FromCSR(4, 3,
 				std::vector<int>{0, 1, 2, 4, 4},
