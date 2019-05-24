@@ -201,7 +201,7 @@ namespace spandex
 
 	private:
 
-		SparseMatrix<T> SqrSym(SparseMatrix<T> & a, Permutation & perm)
+		SparseMatrix<T> SqrSym(SparseMatrix<T>& a, Permutation& perm)
 		{
 			assert(Layout::DefaultLayout == a.layout);
 
@@ -239,7 +239,7 @@ namespace spandex
 			return std::move(s);
 		}
 
-		void SqrTo(SparseMatrix<T> & a, Permutation & perm, SparseMatrix<T> & ata)
+		void SqrTo(SparseMatrix<T>& a, Permutation& perm, SparseMatrix<T>& ata)
 		{
 			assert(Layout::DefaultLayout == a.layout);
 			assert(Layout::LowerSymmetric == ata.layout);
@@ -270,7 +270,7 @@ namespace spandex
 			}
 		}
 
-		static std::vector<T> Permute(std::vector<T> & values, std::function<int(int)> indexFunc)
+		static std::vector<T> Permute(std::vector<T>& values, std::function<int(int)> indexFunc)
 		{
 			int n = (int)values.size();
 			std::vector<T> result(n);
@@ -283,7 +283,7 @@ namespace spandex
 			return std::move(result);
 		}
 
-		static void MulTo(SparseMatrix<T> & a, std::vector<double> & b, std::vector<T> & c)
+		static void MulTo(SparseMatrix<T>& a, std::vector<double>& b, std::vector<T>& c)
 		{
 			assert(a.rowCount == (int)b.size());
 			assert(a.columnCount == (int)c.size());
@@ -299,7 +299,7 @@ namespace spandex
 			}
 		}
 
-		static std::vector<T> SolveLower(SparseMatrix<T> & ld, std::vector<T> & b)
+		static std::vector<T> SolveLower(SparseMatrix<T>& ld, std::vector<T>& b)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert((int)b.size() == ld.rowCount);
@@ -320,7 +320,7 @@ namespace spandex
 			return std::move(y);
 		}
 
-		static std::vector<T> SolveDiag(SparseMatrix<T> & ld, std::vector<T> & y)
+		static std::vector<T> SolveDiag(SparseMatrix<T>& ld, std::vector<T>& y)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert((int)y.size() == ld.rowCount);
@@ -336,7 +336,7 @@ namespace spandex
 			return std::move(x);
 		}
 
-		static std::vector<T> SolveUpper(SparseMatrix<T> & ld, std::vector<T> & z)
+		static std::vector<T> SolveUpper(SparseMatrix<T>& ld, std::vector<T>& z)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert((int)z.size() == ld.rowCount);
@@ -357,7 +357,7 @@ namespace spandex
 			return std::move(x);
 		}
 
-		static void Update(SparseMatrix<T> & ld, const SparseArray<T>& u)
+		static void Update(SparseMatrix<T>& ld, const SparseArray<T>& u)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert(ld.rowCount == u.size);

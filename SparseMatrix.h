@@ -70,17 +70,17 @@ namespace spandex
 		{
 		}
 
-		SparseMatrix(const SparseMatrix<T> & copy) :SparseMatrix()
+		SparseMatrix(const SparseMatrix<T>& copy) :SparseMatrix()
 		{
 			operator=(copy);
 		}
 
-		SparseMatrix(SparseMatrix<T> && move) :SparseMatrix()
+		SparseMatrix(SparseMatrix<T>&& move) :SparseMatrix()
 		{
 			operator=(move);
 		}
 
-		SparseMatrix<T>& operator=(const SparseMatrix<T> & copy)
+		SparseMatrix<T>& operator=(const SparseMatrix<T>& copy)
 		{
 			Resize(copy.rowCount, copy.columnCount, copy.nnz);
 
@@ -99,7 +99,7 @@ namespace spandex
 			return *this;
 		}
 
-		SparseMatrix<T>& operator=(SparseMatrix<T> && move)
+		SparseMatrix<T>& operator=(SparseMatrix<T>&& move)
 		{
 			Resize(move.rowCount, move.columnCount, move.nnz);
 
@@ -123,7 +123,7 @@ namespace spandex
 		}
 
 		static SparseMatrix<T> FromCSR(int rowCount, int columnCount,
-			const std::vector<int> & rows, const std::vector<int> & columns, const std::vector<T> & values)
+			const std::vector<int>& rows, const std::vector<int>& columns, const std::vector<T>& values)
 		{
 			assert(rowCount == ((int)rows.size() - 1));
 			assert(values.size() == columns.size());
@@ -169,7 +169,7 @@ namespace spandex
 			return std::move(sparse);
 		}
 
-		static SparseMatrix<T> FromGraph(int rowCount, int columnCount, rope::CommonGraph<T> & graph)
+		static SparseMatrix<T> FromGraph(int rowCount, int columnCount, rope::CommonGraph<T>& graph)
 		{
 			auto sparse = SparseMatrix<T>::Empty(rowCount, columnCount, graph.size);
 			sparse.nnz = graph.size;
@@ -244,7 +244,7 @@ namespace spandex
 			}
 		}
 
-		bool Equals(const SparseMatrix<T> & that) const
+		bool Equals(const SparseMatrix<T>& that) const
 		{
 			if (nnz != that.nnz)
 			{
@@ -278,7 +278,7 @@ namespace spandex
 			return true;
 		}
 
-		bool Equals(const SparseMatrix<T> & that, std::function<bool(const T&, const T&)> compareFunc) const
+		bool Equals(const SparseMatrix<T>& that, std::function<bool(const T&, const T&)> compareFunc) const
 		{
 			if (nnz != that.nnz)
 			{
@@ -412,7 +412,7 @@ namespace spandex
 			return T();
 		}
 
-		void SetRowwise(int row, int column, const T & value)
+		void SetRowwise(int row, int column, const T& value)
 		{
 			assert(column >= 0 && column < columnCount);
 			assert(row >= 0 && row < rowCount);
@@ -445,7 +445,7 @@ namespace spandex
 			return T();
 		}
 
-		void SetColumnwise(int row, int column, const T & value)
+		void SetColumnwise(int row, int column, const T& value)
 		{
 			assert(column >= 0 && column < columnCount);
 			assert(row >= 0 && row < rowCount);
@@ -463,7 +463,7 @@ namespace spandex
 		}
 
 	public:
-		SparseMatrix<T> Add(SparseMatrix<T> & b)
+		SparseMatrix<T> Add(SparseMatrix<T>& b)
 		{
 			assert(rowCount == b.rowCount);
 			assert(columnCount == b.columnCount);
@@ -473,7 +473,7 @@ namespace spandex
 			return std::move(c);
 		}
 
-		SparseMatrix<T> AddSym(SparseMatrix<T> & b)
+		SparseMatrix<T> AddSym(SparseMatrix<T>& b)
 		{
 			assert(rowCount == b.rowCount);
 			assert(columnCount == b.columnCount);
@@ -501,7 +501,7 @@ namespace spandex
 			return std::move(FromGraph(rowCount, columnCount, c));
 		}
 
-		void AddTo(SparseMatrix<T> & b, SparseMatrix<T> & c)
+		void AddTo(SparseMatrix<T>& b, SparseMatrix<T>& c)
 		{
 			assert(rowCount == b.rowCount);
 			assert(columnCount == b.columnCount);
@@ -531,7 +531,7 @@ namespace spandex
 			}
 		}
 
-		SparseMatrix<T> Mul(SparseMatrix<T> & b)
+		SparseMatrix<T> Mul(SparseMatrix<T>& b)
 		{
 			assert(columnCount == b.rowCount);
 
@@ -540,7 +540,7 @@ namespace spandex
 			return std::move(c);
 		}
 
-		SparseMatrix<T> MulSym(SparseMatrix<T> & b)
+		SparseMatrix<T> MulSym(SparseMatrix<T>& b)
 		{
 			assert(columnCount == b.rowCount);
 
@@ -569,7 +569,7 @@ namespace spandex
 			return FromGraph(rowCount, b.columnCount, c);
 		}
 
-		void MulTo(SparseMatrix<T> & b, SparseMatrix<T> & c)
+		void MulTo(SparseMatrix<T>& b, SparseMatrix<T>& c)
 		{
 			assert(rowCount == c.rowCount);
 			assert(columnCount == b.rowCount);
@@ -634,7 +634,7 @@ namespace spandex
 			return std::move(ata);
 		}
 
-		void SqrTo(SparseMatrix<T> & ata)
+		void SqrTo(SparseMatrix<T>& ata)
 		{
 			assert(Layout::DefaultLayout == ata.layout);
 
@@ -665,7 +665,7 @@ namespace spandex
 
 	private:
 		template<class Key, class Value>
-		static void KeyValueSort(std::vector<Key> & keys, std::vector<Value> & values, int begin, int end)
+		static void KeyValueSort(std::vector<Key>& keys, std::vector<Value>& values, int begin, int end)
 		{
 			assert(keys.size() == values.size());
 			assert(begin >= 0);
@@ -683,8 +683,8 @@ namespace spandex
 		}
 
 		template<class Y>
-		static void Reindex(std::vector<Y> & values,
-			const std::vector<int> & oldIndices, const std::vector<int> & newIndices)
+		static void Reindex(std::vector<Y>& values,
+			const std::vector<int>& oldIndices, const std::vector<int>& newIndices)
 		{
 			assert(oldIndices.size() == newIndices.size());
 			assert(oldIndices.size() <= values.size());

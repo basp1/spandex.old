@@ -100,7 +100,7 @@ namespace spandex
 			}
 
 			rope::SegmentTree<item> st(std::make_pair<int, double>(-1, std::numeric_limits<int>::max()),
-				[](const item & x, const item & y) { return x.second < y.second ? x : y; },
+				[](const item& x, const item& y) { return x.second < y.second ? x : y; },
 				inits);
 
 			auto it = eg.GetIterator();
