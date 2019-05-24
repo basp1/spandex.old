@@ -101,7 +101,7 @@ namespace spandex
 				}
 			}
 
-			Downdate(ld, u);
+			Downdate(ld, perm, u);
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
@@ -416,7 +416,7 @@ namespace spandex
 			}
 		}
 
-		static void Downdate(SparseMatrix<T>& ld, const SparseArray<T>& u)
+		static void Downdate(SparseMatrix<T>& ld, Permutation& perm, const SparseArray<T>& u)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert(ld.rowCount == u.size);
