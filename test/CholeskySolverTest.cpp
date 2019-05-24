@@ -332,6 +332,14 @@ namespace spandex::test
 			Assert::AreEqual(b[0], x[0] * a.GetRowwise(0, 0) + x[1] * a.GetRowwise(0, 1) + x[2] * a.GetRowwise(0, 2), 1e-8);
 			Assert::AreEqual(b[1], x[0] * a.GetRowwise(1, 0) + x[1] * a.GetRowwise(1, 1) + x[2] * a.GetRowwise(1, 2), 1e-8);
 			Assert::AreEqual(b[2], x[0] * a.GetRowwise(2, 0) + x[1] * a.GetRowwise(2, 1) + x[2] * a.GetRowwise(2, 2), 1e-8);
+
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.SolveSym(a);
+			x = solver.Solve(a, b);
+
+			Assert::AreEqual(-46.1300, x[0], 1e-8);
+			Assert::AreEqual(21.5250, x[1], 1e-8);
+			Assert::AreEqual(-4.5250, x[2], 1e-8);
 		}
 
 		TEST_METHOD(Update_1)
@@ -368,7 +376,7 @@ namespace spandex::test
 
 			double diff = SquareDiff(x, u);
 
-			Assert::IsTrue(diff < 1e-8);
+			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Update_2)
@@ -434,7 +442,7 @@ namespace spandex::test
 
 			double diff = SquareDiff(x, u);
 
-			Assert::IsTrue(diff < 1e-8);
+			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 	private:
