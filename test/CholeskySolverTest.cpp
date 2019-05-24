@@ -392,6 +392,43 @@ namespace spandex::test
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b{ 17, 2.89, -3.3 };
+
+			auto x = solver.Solve(a, b);
+
+			auto u = solver.Update(SparseArray<double>({ 7.0, -5.0, 1.0 }), 9);
+
+			g.AddVertex();
+			g.Insert(3, 0, 7);
+			g.Insert(3, 1, -5);
+			g.Insert(3, 2, 1);
+			a = spandex::SparseMatrix<double>::FromGraph(4, 3, g);
+			b.push_back(9);
+			x = solver.Solve(a, b);
+
+			double diff = SquareDiff(x, u);
+
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
+		TEST_METHOD(Update_3)
+		{
+			rope::CommonGraph<double> g(3);
+			g.Insert(0, 1, 1);
+			g.Insert(0, 2, 1);
+			g.Insert(1, 0, 2);
+			g.Insert(1, 1, 4);
+			g.Insert(1, 2, -2);
+			g.Insert(2, 1, 3);
+			g.Insert(2, 2, 15);
+			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
+
+			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
 			solver.normalization = spandex::Normalization::Type::Pivots;
 
@@ -411,7 +448,58 @@ namespace spandex::test
 
 			double diff = SquareDiff(x, u);
 
-			Assert::IsTrue(diff < 1e-8);
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
+		TEST_METHOD(Update_4)
+		{
+			rope::CommonGraph<double> g(10);
+
+			g.Insert(0, 0, 0.360464443870286);
+			g.Insert(2, 1, 0.965038079655014);
+			g.Insert(9, 1, 0.806541221607173);
+			g.Insert(0, 2, 0.156202523064209);
+			g.Insert(2, 2, 0.70277194218269);
+			g.Insert(6, 2, 0.398688926587124);
+			g.Insert(8, 2, 0.158532504726658);
+			g.Insert(9, 2, 0.070915819808533);
+			g.Insert(6, 3, 0.552895404215196);
+			g.Insert(3, 4, 0.97656582830328);
+			g.Insert(5, 4, 0.362469500523493);
+			g.Insert(1, 5, 0.510437505153131);
+			g.Insert(2, 5, 0.473695871041683);
+			g.Insert(4, 6, 0.477123911915246);
+			g.Insert(7, 6, 0.582754540178946);
+			g.Insert(3, 7, 0.828533162691592);
+			g.Insert(4, 8, 0.612247361949774);
+			g.Insert(5, 9, 0.570109021624869);
+
+			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
+
+			spandex::CholeskySolver<double> solver(10, 10);
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b(10);
+			std::iota(b.begin(), b.end(), 1);
+
+			auto x = solver.Solve(a, b);
+
+			auto u = solver.Update(SparseArray<double>(10, { {1, 0.5}, {2, 0.1}, {5, 0.9} }), 11);
+
+			g.AddVertex();
+			g.Insert(10, 1, 0.5);
+			g.Insert(10, 2, 0.1);
+			g.Insert(10, 5, 0.9);
+			a = spandex::SparseMatrix<double>::FromGraph(11, 10, g);
+			b.push_back(11);
+			x = solver.Solve(a, b);
+
+			double diff = SquareDiff(x, u);
+
+			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Downdate_1)
