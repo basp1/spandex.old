@@ -190,7 +190,7 @@ namespace spandex
 				for (int k = ld.rows[j]; k < ld.rows[j + 1] && ld.rowsColumns[k] < j; k++)
 				{
 					int r = ld.rowsColumns[k];
-					double a = ld.values[ld.positions[k]] * ld.values[ld.columns[r]];
+					T a = ld.values[ld.positions[k]] * ld.values[ld.columns[r]];
 
 					for (int i = ld.positions[k]; i < ld.columns[r + 1]; i++)
 					{
@@ -198,7 +198,7 @@ namespace spandex
 					}
 				}
 
-				double d = ld.values[ld.columns[j]] = acc[j];
+				T d = ld.values[ld.columns[j]] = acc[j];
 
 				for (int k = ld.columns[j] + 1; k < ld.columns[j + 1]; k++)
 				{
@@ -306,7 +306,7 @@ namespace spandex
 			return std::move(result);
 		}
 
-		static void MulTo(SparseMatrix<T>& a, std::vector<double>& b, std::vector<T>& c)
+		static void MulTo(SparseMatrix<T>& a, std::vector<T>& b, std::vector<T>& c)
 		{
 			assert(a.rowCount == (int)b.size());
 			assert(a.columnCount == (int)c.size());
@@ -332,7 +332,7 @@ namespace spandex
 
 			for (int i = 0; i < n; i++)
 			{
-				double sum = 0;
+				T sum = (T)0;
 				for (int j = ld.rows[i]; j < (ld.rows[i + 1] - 1); j++)
 				{
 					sum += ld.values[ld.positions[j]] * y[ld.rowsColumns[j]];
@@ -369,7 +369,7 @@ namespace spandex
 
 			for (int j = (n - 1); j >= 0; j--)
 			{
-				double sum = 0;
+				T sum = (T)0;
 				for (int i = ld.columns[j] + 1; i < ld.columns[j + 1]; i++)
 				{
 					sum += ld.values[i] * x[ld.columnsRows[i]];
