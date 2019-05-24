@@ -88,6 +88,29 @@ namespace spandex
 			return std::move(x);
 		}
 
+		std::vector<T> Downdate(SparseArray<T>& u, T v)
+		{
+			assert(ld.rowCount == u.size);
+
+			const T zero = (T)0;
+			for (auto it = u.begin(); it != u.end(); ++it)
+			{
+				if (zero != it->second)
+				{
+					y[perm.GetPermuted(it->first)] -= v * it->second;
+				}
+			}
+
+			Downdate(ld, u);
+
+			std::vector<T> x(ld.rowCount);
+			SolveTo(ld, y, x);
+
+			x = Permute(x, [&](int i) { return perm.GetPrimary(i); });
+
+			return std::move(x);
+		}
+
 		SparseMatrix<T> CholSym(SparseMatrix<T>& symm)
 		{
 			assert(Layout::LowerSymmetric == symm.layout);
@@ -389,6 +412,64 @@ namespace spandex
 
 					vals[ii] -= x * ld.values[i];
 					ld.values[i] += c * vals[ii];
+				}
+			}
+		}
+
+		static void Downdate(SparseMatrix<T>& ld, const SparseArray<T>& u)
+		{
+			assert(Layout::LowerTriangle == ld.layout);
+			assert(ld.rowCount == u.size);
+
+			const T zero = (T)0;
+			const T one = (T)1;
+
+			std::vector<T> vals(u.size, zero);
+			for (auto it = u.begin(); it != u.end(); ++it)
+			{
+				vals[it->first] = it->second;
+			}
+
+			auto diag = ld.GetDiag();
+			for (int i = 0; i < u.size; i++)
+			{
+				ld.SetColumnwise(i, i, one);
+			}
+
+			auto p = SolveDiag(ld, vals);
+
+			for (int i = 0; i < u.size; i++)
+			{
+				ld.SetColumnwise(i, i, diag[i]);
+			}
+
+			T sum = zero;
+			for (int i = 0; i < u.size; i++)
+			{
+				sum += p[i] / ld.GetColumnwise(i, i) * p[i];
+			}
+
+			T a = one - sum;
+
+			for (int j = u.size - 1; -1 != j; j--)
+			{
+				int jj = ld.columns[j];
+				T d = ld.values[jj];
+
+				T b = a + p[j] * p[j] / d;
+				ld.values[jj] = d * a / b;
+				T c = -p[j] / (d * a);
+				vals[j] = p[j];
+
+				a = b;
+
+				for (int i = jj + 1; i < ld.columns[j + 1]; i++)
+				{
+					int ii = ld.columnsRows[i];
+
+					T v = vals[ii];
+					vals[ii] += p[j] * ld.values[i];
+					ld.values[i] += c * v;
 				}
 			}
 		}

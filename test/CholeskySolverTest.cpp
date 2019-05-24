@@ -406,6 +406,37 @@ namespace spandex::test
 			Assert::IsTrue(diff < 1e-8);
 		}
 
+		TEST_METHOD(Downdate_1)
+		{
+			rope::CommonGraph<double> g(3);
+			g.Insert(0, 1, 1);
+			g.Insert(0, 2, 1);
+			g.Insert(1, 0, 2);
+			g.Insert(1, 1, 4);
+			g.Insert(1, 2, -2);
+			g.Insert(2, 1, 3);
+			g.Insert(2, 2, 15);
+			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
+
+			spandex::CholeskySolver<double> solver(3, 3);
+			solver.permutation = spandex::Permutation::Type::NoPermutation;
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b{ 17, 2.89, -3.3 };
+
+			auto x = solver.Solve(a, b);
+
+			solver.Update(SparseArray<double>(3, { {2, 1.0} }), 9);
+
+			auto u = solver.Downdate(SparseArray<double>(3, { {2, 1.0} }), 9);
+
+			double diff = SquareDiff(x, u);
+
+			Assert::IsTrue(diff < 1e-8);
+		}
+
 	private:
 
 		static double SquareDiff(std::vector<double> & x, std::vector<double> & y)
