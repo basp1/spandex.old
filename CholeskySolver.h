@@ -78,7 +78,7 @@ namespace spandex
 				}
 			}
 
-			Update(ld, u);
+			Update(ld, perm, u);
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
@@ -380,22 +380,26 @@ namespace spandex
 			return std::move(x);
 		}
 
-		static void Update(SparseMatrix<T>& ld, const SparseArray<T>& u)
+		static void Update(SparseMatrix<T>& ld, Permutation& perm, const SparseArray<T>& u)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert(ld.rowCount == u.size);
 
 			const T zero = (T)0;
 			T a = (T)1, b = zero, c = zero;
+
 			std::vector<T> vals(u.size, zero);
 			for (auto it = u.begin(); it != u.end(); ++it)
 			{
-				vals[it->first] = it->second;
+				vals[perm.GetPermuted(it->first)] = it->second;
 			}
 
-			for (auto it = u.begin(); it != u.end(); ++it)
+			for (int j = 0; j < u.size; j++)
 			{
-				int j = it->first;
+				if (zero == vals[j])
+				{
+					continue;
+				}
 
 				int jj = ld.columns[j];
 
@@ -427,7 +431,7 @@ namespace spandex
 			std::vector<T> vals(u.size, zero);
 			for (auto it = u.begin(); it != u.end(); ++it)
 			{
-				vals[it->first] = it->second;
+				vals[perm.GetPermuted(it->first)] = it->second;
 			}
 
 			auto diag = ld.GetDiag();
