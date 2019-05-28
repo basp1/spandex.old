@@ -177,7 +177,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			std::vector<double> b = { 1, 10, 5 };
 
@@ -216,7 +216,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(5, 5);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			std::vector<double> b = { 4, -1, -3, 4, -2 };
 
@@ -261,7 +261,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(10, 10);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -317,7 +317,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -356,7 +356,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -393,7 +393,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::AMD;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -430,7 +430,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -478,7 +478,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(10, 10);
 			solver.permutation = spandex::Permutation::Type::AMD;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -516,7 +516,7 @@ namespace spandex::test
 
 			spandex::CholeskySolver<double> solver(3, 3);
 			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -524,9 +524,11 @@ namespace spandex::test
 
 			auto x = solver.Solve(a, b);
 
-			solver.Update(SparseArray<double>(3, { {2, 1.0} }), 9);
+			SparseArray<double> mod(3, { {2, 1.0} });
 
-			auto u = solver.Downdate(SparseArray<double>(3, { {2, 1.0} }), 9);
+			solver.Update(mod, 9);
+
+			auto u = solver.Downdate(mod, 9);
 
 			double diff = SquareDiff(x, u);
 
@@ -559,8 +561,8 @@ namespace spandex::test
 			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
 
 			spandex::CholeskySolver<double> solver(10, 10);
-			solver.permutation = spandex::Permutation::Type::NoPermutation;
-			solver.normalization = spandex::Normalization::Type::Pivots;
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
 
 			solver.SolveSym(a);
 
@@ -569,7 +571,7 @@ namespace spandex::test
 
 			auto x = solver.Solve(a, b);
 
-			auto mod = SparseArray<double>(10, { {1, 0.5}, {2, 0.1}, {5, 0.9} });
+			SparseArray<double> mod(10, { {1, 0.5}, {2, 0.1}, {5, 0.9} });
 
 			auto u = solver.Update(mod, 11);
 
