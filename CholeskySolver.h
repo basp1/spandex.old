@@ -74,7 +74,7 @@ namespace spandex
 			{
 				if (zero != it->second)
 				{
-					y[perm.GetPermuted(it->first)] += v * it->second;
+					y[perm.GetPrimary(it->first)] += v * it->second;
 				}
 			}
 
@@ -391,7 +391,7 @@ namespace spandex
 			std::vector<T> vals(u.size, zero);
 			for (auto it = u.begin(); it != u.end(); ++it)
 			{
-				vals[perm.GetPermuted(it->first)] = it->second;
+				vals[perm.GetPrimary(it->first)] = it->second;
 			}
 
 			for (int j = 0; j < u.size; j++)
