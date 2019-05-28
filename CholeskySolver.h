@@ -46,7 +46,7 @@ namespace spandex
 			perm = Permutation::Build(a, permutation);
 			ata = SparseMatrix<T>(std::move(SqrSym(a, perm)));
 			ld = SparseMatrix<T>(std::move(CholSym(ata)));
-			y.resize(a.rowCount);
+			y.resize(a.columnCount);
 		}
 
 		std::vector<T> Solve(SparseMatrix<T>& a, std::vector<T>& b)
