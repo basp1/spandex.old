@@ -12,8 +12,10 @@ namespace spandex::test
 {
 	TEST_CLASS(CholeskySolver)
 	{
-	public:
+		rope::CommonGraph<double> graph_10x10;
+		rope::CommonGraph<double> graph_3x3;
 
+	public:
 		TEST_METHOD(Chol_1)
 		{
 			rope::CommonGraph<double> g(3);
@@ -236,27 +238,7 @@ namespace spandex::test
 
 		TEST_METHOD(Solve_3)
 		{
-			rope::CommonGraph<double> g(10);
-
-			g.Insert(0, 0, 0.360464443870286);
-			g.Insert(2, 1, 0.965038079655014);
-			g.Insert(9, 1, 0.806541221607173);
-			g.Insert(0, 2, 0.156202523064209);
-			g.Insert(2, 2, 0.70277194218269);
-			g.Insert(6, 2, 0.398688926587124);
-			g.Insert(8, 2, 0.158532504726658);
-			g.Insert(9, 2, 0.070915819808533);
-			g.Insert(6, 3, 0.552895404215196);
-			g.Insert(3, 4, 0.97656582830328);
-			g.Insert(5, 4, 0.362469500523493);
-			g.Insert(1, 5, 0.510437505153131);
-			g.Insert(2, 5, 0.473695871041683);
-			g.Insert(4, 6, 0.477123911915246);
-			g.Insert(7, 6, 0.582754540178946);
-			g.Insert(3, 7, 0.828533162691592);
-			g.Insert(4, 8, 0.612247361949774);
-			g.Insert(5, 9, 0.570109021624869);
-
+			auto g = graph_10x10;
 			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
 
 			spandex::CholeskySolver<double> solver(10, 10);
@@ -305,14 +287,7 @@ namespace spandex::test
 
 		TEST_METHOD(Solve_4)
 		{
-			rope::CommonGraph<double> g(3);
-			g.Insert(0, 1, 1);
-			g.Insert(0, 2, 1);
-			g.Insert(1, 0, 2);
-			g.Insert(1, 1, 4);
-			g.Insert(1, 2, -2);
-			g.Insert(2, 1, 3);
-			g.Insert(2, 2, 15);
+			auto g = graph_3x3;
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
@@ -344,14 +319,7 @@ namespace spandex::test
 
 		TEST_METHOD(Update_1)
 		{
-			rope::CommonGraph<double> g(3);
-			g.Insert(0, 1, 1);
-			g.Insert(0, 2, 1);
-			g.Insert(1, 0, 2);
-			g.Insert(1, 1, 4);
-			g.Insert(1, 2, -2);
-			g.Insert(2, 1, 3);
-			g.Insert(2, 2, 15);
+			auto g = graph_3x3;
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
@@ -375,20 +343,12 @@ namespace spandex::test
 			x = solver.Solve(a, b);
 
 			double diff = SquareDiff(x, u);
-
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Update_2)
 		{
-			rope::CommonGraph<double> g(3);
-			g.Insert(0, 1, 1);
-			g.Insert(0, 2, 1);
-			g.Insert(1, 0, 2);
-			g.Insert(1, 1, 4);
-			g.Insert(1, 2, -2);
-			g.Insert(2, 1, 3);
-			g.Insert(2, 2, 15);
+			auto g = graph_3x3;
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
@@ -412,20 +372,12 @@ namespace spandex::test
 			x = solver.Solve(a, b);
 
 			double diff = SquareDiff(x, u);
-
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Update_3)
 		{
-			rope::CommonGraph<double> g(3);
-			g.Insert(0, 1, 1);
-			g.Insert(0, 2, 1);
-			g.Insert(1, 0, 2);
-			g.Insert(1, 1, 4);
-			g.Insert(1, 2, -2);
-			g.Insert(2, 1, 3);
-			g.Insert(2, 2, 15);
+			auto g = graph_3x3;
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
@@ -447,33 +399,12 @@ namespace spandex::test
 			x = solver.Solve(a, b);
 
 			double diff = SquareDiff(x, u);
-
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Update_4)
 		{
-			rope::CommonGraph<double> g(10);
-
-			g.Insert(0, 0, 0.360464443870286);
-			g.Insert(2, 1, 0.965038079655014);
-			g.Insert(9, 1, 0.806541221607173);
-			g.Insert(0, 2, 0.156202523064209);
-			g.Insert(2, 2, 0.70277194218269);
-			g.Insert(6, 2, 0.398688926587124);
-			g.Insert(8, 2, 0.158532504726658);
-			g.Insert(9, 2, 0.070915819808533);
-			g.Insert(6, 3, 0.552895404215196);
-			g.Insert(3, 4, 0.97656582830328);
-			g.Insert(5, 4, 0.362469500523493);
-			g.Insert(1, 5, 0.510437505153131);
-			g.Insert(2, 5, 0.473695871041683);
-			g.Insert(4, 6, 0.477123911915246);
-			g.Insert(7, 6, 0.582754540178946);
-			g.Insert(3, 7, 0.828533162691592);
-			g.Insert(4, 8, 0.612247361949774);
-			g.Insert(5, 9, 0.570109021624869);
-
+			auto g = graph_10x10;
 			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
 
 			spandex::CholeskySolver<double> solver(10, 10);
@@ -498,20 +429,12 @@ namespace spandex::test
 			x = solver.Solve(a, b);
 
 			double diff = SquareDiff(x, u);
-
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Downdate_1)
 		{
-			rope::CommonGraph<double> g(3);
-			g.Insert(0, 1, 1);
-			g.Insert(0, 2, 1);
-			g.Insert(1, 0, 2);
-			g.Insert(1, 1, 4);
-			g.Insert(1, 2, -2);
-			g.Insert(2, 1, 3);
-			g.Insert(2, 2, 15);
+			auto g = graph_3x3;
 			auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 			spandex::CholeskySolver<double> solver(3, 3);
@@ -531,33 +454,12 @@ namespace spandex::test
 			auto u = solver.Downdate(mod, 9);
 
 			double diff = SquareDiff(x, u);
-
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
 		TEST_METHOD(Downdate_2)
 		{
-			rope::CommonGraph<double> g(10);
-
-			g.Insert(0, 0, 0.360464443870286);
-			g.Insert(2, 1, 0.965038079655014);
-			g.Insert(9, 1, 0.806541221607173);
-			g.Insert(0, 2, 0.156202523064209);
-			g.Insert(2, 2, 0.70277194218269);
-			g.Insert(6, 2, 0.398688926587124);
-			g.Insert(8, 2, 0.158532504726658);
-			g.Insert(9, 2, 0.070915819808533);
-			g.Insert(6, 3, 0.552895404215196);
-			g.Insert(3, 4, 0.97656582830328);
-			g.Insert(5, 4, 0.362469500523493);
-			g.Insert(1, 5, 0.510437505153131);
-			g.Insert(2, 5, 0.473695871041683);
-			g.Insert(4, 6, 0.477123911915246);
-			g.Insert(7, 6, 0.582754540178946);
-			g.Insert(3, 7, 0.828533162691592);
-			g.Insert(4, 8, 0.612247361949774);
-			g.Insert(5, 9, 0.570109021624869);
-
+			auto g = graph_10x10;
 			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
 
 			spandex::CholeskySolver<double> solver(10, 10);
@@ -586,27 +488,7 @@ namespace spandex::test
 
 		TEST_METHOD(Norm_1)
 		{
-			rope::CommonGraph<double> g(10);
-
-			g.Insert(0, 0, 0.360464443870286);
-			g.Insert(2, 1, 0.965038079655014);
-			g.Insert(9, 1, 0.806541221607173);
-			g.Insert(0, 2, 0.156202523064209);
-			g.Insert(2, 2, 0.70277194218269);
-			g.Insert(6, 2, 0.398688926587124);
-			g.Insert(8, 2, 0.158532504726658);
-			g.Insert(9, 2, 0.070915819808533);
-			g.Insert(6, 3, 0.552895404215196);
-			g.Insert(3, 4, 0.97656582830328);
-			g.Insert(5, 4, 0.362469500523493);
-			g.Insert(1, 5, 0.510437505153131);
-			g.Insert(2, 5, 0.473695871041683);
-			g.Insert(4, 6, 0.477123911915246);
-			g.Insert(7, 6, 0.582754540178946);
-			g.Insert(3, 7, 0.828533162691592);
-			g.Insert(4, 8, 0.612247361949774);
-			g.Insert(5, 9, 0.570109021624869);
-
+			auto g = graph_10x10;
 			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
 
 			spandex::CholeskySolver<double> solver(10, 10);
@@ -627,16 +509,39 @@ namespace spandex::test
 			x = solver.Solve(a, b);
 			auto z = Mul(a, x);
 
-			Assert::AreEqual(y[0], z[0], 1e-10);
-			Assert::AreEqual(y[1], z[1], 1e-10);
-			Assert::AreEqual(y[2], z[2], 1e-10);
-			Assert::AreEqual(y[3], z[3], 1e-10);
-			Assert::AreEqual(y[4], z[4], 1e-10);
-			Assert::AreEqual(y[5], z[5], 1e-10);
-			Assert::AreEqual(y[6], z[6], 1e-10);
-			Assert::AreEqual(y[7], z[7], 1e-10);
-			Assert::AreEqual(y[8], z[8], 1e-10);
-			Assert::AreEqual(y[9], z[9], 1e-10);
+			double diff = SquareDiff(y, z);
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
+	public:
+		CholeskySolver() : graph_3x3(3), graph_10x10(10)
+		{
+			graph_3x3.Insert(0, 1, 1);
+			graph_3x3.Insert(0, 2, 1);
+			graph_3x3.Insert(1, 0, 2);
+			graph_3x3.Insert(1, 1, 4);
+			graph_3x3.Insert(1, 2, -2);
+			graph_3x3.Insert(2, 1, 3);
+			graph_3x3.Insert(2, 2, 15);
+
+			graph_10x10.Insert(0, 0, 0.360464443870286);
+			graph_10x10.Insert(2, 1, 0.965038079655014);
+			graph_10x10.Insert(9, 1, 0.806541221607173);
+			graph_10x10.Insert(0, 2, 0.156202523064209);
+			graph_10x10.Insert(2, 2, 0.70277194218269);
+			graph_10x10.Insert(6, 2, 0.398688926587124);
+			graph_10x10.Insert(8, 2, 0.158532504726658);
+			graph_10x10.Insert(9, 2, 0.070915819808533);
+			graph_10x10.Insert(6, 3, 0.552895404215196);
+			graph_10x10.Insert(3, 4, 0.97656582830328);
+			graph_10x10.Insert(5, 4, 0.362469500523493);
+			graph_10x10.Insert(1, 5, 0.510437505153131);
+			graph_10x10.Insert(2, 5, 0.473695871041683);
+			graph_10x10.Insert(4, 6, 0.477123911915246);
+			graph_10x10.Insert(7, 6, 0.582754540178946);
+			graph_10x10.Insert(3, 7, 0.828533162691592);
+			graph_10x10.Insert(4, 8, 0.612247361949774);
+			graph_10x10.Insert(5, 9, 0.570109021624869);
 		}
 
 	private:
