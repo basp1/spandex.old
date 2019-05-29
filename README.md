@@ -24,4 +24,5 @@ auto x = solver.Solve(a, b);
 
 spandex::SparseArray<double> mod({ 7.0, -5.0, 1.0 });
 auto u = solver.Update(mod, 9);
+auto v = solver.Downdate(mod, 9);
 ```
