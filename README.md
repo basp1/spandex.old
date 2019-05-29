@@ -14,6 +14,7 @@ auto a = spandex::SparseMatrix<double>::FromGraph(3, 3, g);
 
 spandex::CholeskySolver<double> solver(3, 3);
 solver.permutation = spandex::Permutation::Type::AMD;
+solver.normalization = spandex::Normalization::Type::Pivots;
 
 solver.SolveSym(a);
 
@@ -21,5 +22,6 @@ std::vector<double> b{ 17, 2.89, -3.3 };
 
 auto x = solver.Solve(a, b);
 
-auto u = solver.Update(spandex::SparseArray<double>({ 7.0, -5.0, 1.0 }), 9);
+spandex::SparseArray<double> mod({ 7.0, -5.0, 1.0 });
+auto u = solver.Update(mod, 9);
 ```
