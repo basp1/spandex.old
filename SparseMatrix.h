@@ -75,7 +75,7 @@ namespace spandex
 			operator=(copy);
 		}
 
-		SparseMatrix(SparseMatrix<T>&& move) :SparseMatrix()
+		SparseMatrix(SparseMatrix<T>&& move) noexcept : SparseMatrix()
 		{
 			operator=(move);
 		}
