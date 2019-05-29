@@ -513,6 +513,83 @@ namespace spandex::test
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 
+		TEST_METHOD(Norm_2)
+		{
+			auto g = graph_10x10;
+			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
+
+			spandex::CholeskySolver<double> solver(10, 10);
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.normalization = spandex::Normalization::Type::NoNormalization;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b(10);
+			std::iota(b.begin(), b.end(), 1);
+
+			auto x = solver.Solve(a, b);
+
+			auto y = Mul(a, x);
+
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			x = solver.Solve(a, b);
+			auto z = Mul(a, x);
+
+			double diff = SquareDiff(y, z);
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
+		TEST_METHOD(Norm_3)
+		{
+			auto g = graph_10x10;
+			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
+
+			spandex::CholeskySolver<double> solver(10, 10);
+			solver.permutation = spandex::Permutation::Type::NoPermutation;
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b(10);
+			std::iota(b.begin(), b.end(), 1);
+
+			auto x = solver.Solve(a, b);
+
+			SparseArray<double> mod(10, { {1, 0.5}, {2, 0.1}, {5, 0.9} });
+
+			auto u = solver.Update(mod, 11.0);
+			u = solver.Downdate(mod, 11.0);
+
+			double diff = SquareDiff(x, u);
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
+		TEST_METHOD(Norm_4)
+		{
+			auto g = graph_10x10;
+			auto a = spandex::SparseMatrix<double>::FromGraph(10, 10, g);
+
+			spandex::CholeskySolver<double> solver(10, 10);
+			solver.permutation = spandex::Permutation::Type::AMD;
+			solver.normalization = spandex::Normalization::Type::Pivots;
+
+			solver.SolveSym(a);
+
+			std::vector<double> b(10);
+			std::iota(b.begin(), b.end(), 1);
+
+			auto x = solver.Solve(a, b);
+
+			SparseArray<double> mod(10, { {1, 0.5}, {2, 0.1}, {5, 0.9} });
+
+			auto u = solver.Update(mod, 11.0);
+			u = solver.Downdate(mod, 11.0);
+
+			double diff = SquareDiff(x, u);
+			Assert::AreEqual(0, diff, 1e-8);
+		}
+
 	public:
 		CholeskySolver() : graph_3x3(3), graph_10x10(10)
 		{

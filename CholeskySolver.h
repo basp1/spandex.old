@@ -21,7 +21,7 @@ namespace spandex
 		SparseMatrix<T> ata;
 		SparseMatrix<T> ld;
 		std::vector<T> y;
-		
+
 		Permutation perm;
 		std::vector<T> norm;
 
@@ -55,31 +55,24 @@ namespace spandex
 		{
 			SqrTo(a, perm, ata);
 
-			if (Normalization::Type::NoNormalization != normalization)
-			{
-				this->norm = Normalization::NormTo(normalization, ata);
-			}
+			this->norm = Normalization::NormTo(normalization, ata);
 
 			CholTo(ata, ld);
 
 			MulTo(a, b, y);
 			y = Permute(y, [&](int i) { return perm.GetPermuted(i); });
-			if (Normalization::Type::NoNormalization != normalization)
+
+			for (int i = 0; i < (int)y.size(); i++)
 			{
-				for (int i = 0; i < (int)y.size(); i++)
-				{
-					y[i] *= norm[i];
-				}
+				y[i] *= norm[i];
 			}
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
-			if (Normalization::Type::NoNormalization != normalization)
+
+			for (int i = 0; i < (int)x.size(); i++)
 			{
-				for (int i = 0; i < (int)x.size(); i++)
-				{
-					x[i] *= norm[i];
-				}
+				x[i] *= norm[i];
 			}
 
 			x = Permute(x, [&](int i) { return perm.GetPrimary(i); });
@@ -96,7 +89,8 @@ namespace spandex
 			{
 				if (zero != it->second)
 				{
-					y[perm.GetPrimary(it->first)] += v * it->second;
+					int i = perm.GetPrimary(it->first);
+					y[i] += v * it->second * norm[i];
 				}
 			}
 
@@ -104,6 +98,11 @@ namespace spandex
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
+
+			for (int i = 0; i < u.size; i++)
+			{
+				x[i] *= norm[i];
+			}
 
 			x = Permute(x, [&](int i) { return perm.GetPrimary(i); });
 
@@ -119,7 +118,8 @@ namespace spandex
 			{
 				if (zero != it->second)
 				{
-					y[perm.GetPrimary(it->first)] -= v * it->second;
+					int i = perm.GetPrimary(it->first);
+					y[i] -= v * it->second * norm[i];
 				}
 			}
 
@@ -127,6 +127,11 @@ namespace spandex
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
+
+			for (int i = 0; i < u.size; i++)
+			{
+				x[i] *= norm[i];
+			}
 
 			x = Permute(x, [&](int i) { return perm.GetPrimary(i); });
 
