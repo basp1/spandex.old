@@ -21,7 +21,9 @@ namespace spandex
 		SparseMatrix<T> ata;
 		SparseMatrix<T> ld;
 		std::vector<T> y;
+		
 		Permutation perm;
+		std::vector<T> norm;
 
 	public:
 		int rowCount;
@@ -52,13 +54,33 @@ namespace spandex
 		std::vector<T> Solve(SparseMatrix<T>& a, std::vector<T>& b)
 		{
 			SqrTo(a, perm, ata);
+
+			if (Normalization::Type::NoNormalization != normalization)
+			{
+				this->norm = Normalization::NormTo(normalization, ata);
+			}
+
 			CholTo(ata, ld);
 
 			MulTo(a, b, y);
 			y = Permute(y, [&](int i) { return perm.GetPermuted(i); });
+			if (Normalization::Type::NoNormalization != normalization)
+			{
+				for (int i = 0; i < (int)y.size(); i++)
+				{
+					y[i] *= norm[i];
+				}
+			}
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
+			if (Normalization::Type::NoNormalization != normalization)
+			{
+				for (int i = 0; i < (int)x.size(); i++)
+				{
+					x[i] *= norm[i];
+				}
+			}
 
 			x = Permute(x, [&](int i) { return perm.GetPrimary(i); });
 

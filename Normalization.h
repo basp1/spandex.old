@@ -18,7 +18,7 @@ namespace spandex
 		};
 
 		template<class T>
-		std::vector<T> NormTo(Type type, SparseMatrix<T>& a)
+		static std::vector<T> NormTo(Type type, SparseMatrix<T>& a)
 		{
 			if (Type::Pivots == type)
 			{
@@ -32,7 +32,7 @@ namespace spandex
 		}
 
 		template<class T>
-		std::vector<T> NormPivotsTo(SparseMatrix<T>& a)
+		static std::vector<T> NormPivotsTo(SparseMatrix<T>& a)
 		{
 			T zero = (T)0;
 			T one = (T)1;
