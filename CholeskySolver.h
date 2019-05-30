@@ -30,12 +30,14 @@ namespace spandex
 		int columnCount;
 		Permutation::Type permutation;
 		Normalization::Type normalization;
+		T tolerance;
 
 		CholeskySolver(int rowCount, int columnCount) : rowCount(rowCount), columnCount(columnCount),
 			list(columnCount)
 		{
 			permutation = Permutation::Type::NoPermutation;
 			normalization = Normalization::Type::NoNormalization;
+			tolerance = (T)1e-10;
 		}
 
 		Permutation& GetPermutation()
@@ -123,7 +125,7 @@ namespace spandex
 				}
 			}
 
-			Downdate(ld, perm, u);
+			Downdate(ld, perm, u, tolerance);
 
 			std::vector<T> x(ld.rowCount);
 			SolveTo(ld, y, x);
@@ -204,6 +206,7 @@ namespace spandex
 			assert(Layout::LowerTriangle == ld.layout);
 
 			int n = sym.rowCount;
+			T zero = (T)0;
 
 			std::vector<T> acc(n, T());
 
@@ -226,6 +229,10 @@ namespace spandex
 				}
 
 				T d = ld.values[ld.columns[j]] = acc[j];
+				if (d <= zero)
+				{
+					d = tolerance;
+				}
 
 				for (int k = ld.columns[j] + 1; k < ld.columns[j + 1]; k++)
 				{
@@ -447,7 +454,7 @@ namespace spandex
 			}
 		}
 
-		static void Downdate(SparseMatrix<T>& ld, Permutation& perm, const SparseArray<T>& u)
+		static void Downdate(SparseMatrix<T>& ld, Permutation& perm, const SparseArray<T>& u, T tolerance)
 		{
 			assert(Layout::LowerTriangle == ld.layout);
 			assert(ld.rowCount == u.size);
@@ -481,6 +488,11 @@ namespace spandex
 			}
 
 			T a = one - sum;
+
+			if (a <= tolerance)
+			{
+				a = tolerance;
+			}
 
 			for (int j = u.size - 1; -1 != j; j--)
 			{
