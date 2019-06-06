@@ -1,0 +1,3 @@
+[submodule "extern/libra"]
+	path = extern/libra
+	url = https://github.com/basp1/libra
