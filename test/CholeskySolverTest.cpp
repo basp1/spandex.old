@@ -3,8 +3,8 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-#include <rope/CommonGraph.h>
-#include <rope/Range.h>
+#include <libra/CommonGraph.h>
+#include <libra/Range.h>
 #include <spandex/SparseMatrix.h>
 #include <spandex/CholeskySolver.h>
 
@@ -12,13 +12,13 @@ namespace spandex::test
 {
 	TEST_CLASS(CholeskySolver)
 	{
-		rope::CommonGraph<double> graph_10x10;
-		rope::CommonGraph<double> graph_3x3;
+		libra::CommonGraph<double> graph_10x10;
+		libra::CommonGraph<double> graph_3x3;
 
 	public:
 		TEST_METHOD(Chol_1)
 		{
-			rope::CommonGraph<double> g(3);
+			libra::CommonGraph<double> g(3);
 			g.Insert(0, 0, 6);
 			g.Insert(1, 0, 8);
 			g.Insert(1, 1, 27);
@@ -43,7 +43,7 @@ namespace spandex::test
 
 		TEST_METHOD(Chol_2)
 		{
-			rope::CommonGraph<double> g(11);
+			libra::CommonGraph<double> g(11);
 			g.Insert(0, 0, 1);
 			g.Insert(1, 1, 2);
 			g.Insert(2, 1, 3);
@@ -89,7 +89,7 @@ namespace spandex::test
 
 		TEST_METHOD(Chol_3)
 		{
-			rope::CommonGraph<double> g(3);
+			libra::CommonGraph<double> g(3);
 			g.Insert(0, 0, 6);
 			g.Insert(1, 0, 8);
 			g.Insert(1, 1, 27);
@@ -119,7 +119,7 @@ namespace spandex::test
 
 		TEST_METHOD(Chol_4)
 		{
-			rope::CommonGraph<double> g(5);
+			libra::CommonGraph<double> g(5);
 			g.Insert(0, 0, 0.454154210872255);
 			g.Insert(1, 0, 0.493313382040145);
 			g.Insert(1, 1, 0.673117517240105);
@@ -167,7 +167,7 @@ namespace spandex::test
 
 		TEST_METHOD(Solve_1)
 		{
-			rope::CommonGraph<double> g(3);
+			libra::CommonGraph<double> g(3);
 			g.Insert(0, 0, 38);
 			g.Insert(1, 0, 22);
 			g.Insert(1, 1, 17);
@@ -197,7 +197,7 @@ namespace spandex::test
 
 		TEST_METHOD(Solve_2)
 		{
-			rope::CommonGraph<double> g(5);
+			libra::CommonGraph<double> g(5);
 			g.Insert(0, 0, 0.339721892599889);
 			g.Insert(1, 0, -0.117511897064494);
 			g.Insert(1, 1, 0.61348986691309);
@@ -627,7 +627,7 @@ namespace spandex::test
 		{
 			assert(x.size() == y.size());
 
-			rope::Range iota((int)x.size());
+			libra::Range iota((int)x.size());
 			double diff = std::sqrt(std::accumulate(iota.begin(), iota.end(), 0.0,
 				[&](double acc, int i) { return acc + std::pow(x[i] - y[i], 2.0); }));
 

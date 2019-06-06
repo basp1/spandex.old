@@ -1,7 +1,7 @@
 #pragma once
 
-#include <rope/CommonGraph.h>
-#include <rope/IntList.h>
+#include <libra/CommonGraph.h>
+#include <libra/IntList.h>
 #include "SparseArray.h"
 
 #include <cassert>
@@ -39,7 +39,7 @@ namespace spandex
 
 	private:
 
-		rope::IntList list;
+		libra::IntList list;
 
 		SparseMatrix(int rowCount, int columnCount, int capacity) : SparseMatrix()
 		{
@@ -169,7 +169,7 @@ namespace spandex
 			return std::move(sparse);
 		}
 
-		static SparseMatrix<T> FromGraph(int rowCount, int columnCount, rope::CommonGraph<T>& graph)
+		static SparseMatrix<T> FromGraph(int rowCount, int columnCount, libra::CommonGraph<T>& graph)
 		{
 			auto sparse = SparseMatrix<T>::Empty(rowCount, columnCount, graph.size);
 			sparse.nnz = graph.size;
@@ -478,7 +478,7 @@ namespace spandex
 			assert(rowCount == b.rowCount);
 			assert(columnCount == b.columnCount);
 
-			rope::CommonGraph<T> c(rowCount, nnz);
+			libra::CommonGraph<T> c(rowCount, nnz);
 
 			list.Clear();
 
@@ -547,7 +547,7 @@ namespace spandex
 			list.Clear();
 
 			int initcap = (int)(nnz / 3);
-			rope::CommonGraph<T> c(rowCount, initcap);
+			libra::CommonGraph<T> c(rowCount, initcap);
 
 			for (int j = 0; j < b.columnCount; j++)
 			{
@@ -606,7 +606,7 @@ namespace spandex
 
 		SparseMatrix<T> SqrSym()
 		{
-			rope::CommonGraph<T> g(columnCount, columnCount);
+			libra::CommonGraph<T> g(columnCount, columnCount);
 			list.Clear();
 
 			for (int j = 0; j < columnCount; j++)

@@ -6,7 +6,7 @@
 #include <limits>
 #include <vector>
 
-#include <rope/SegmentTree.h>
+#include <libra/SegmentTree.h>
 
 namespace spandex
 {
@@ -99,7 +99,7 @@ namespace spandex
 				inits[i] = item(i, eg.GetSize(i));
 			}
 
-			rope::SegmentTree<item> st(std::make_pair<int, double>(-1, std::numeric_limits<int>::max()),
+			libra::SegmentTree<item> st(std::make_pair<int, double>(-1, std::numeric_limits<int>::max()),
 				[](const item& x, const item& y) { return x.second < y.second ? x : y; },
 				inits);
 

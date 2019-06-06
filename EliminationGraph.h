@@ -1,8 +1,8 @@
 #pragma once
 
-#include <rope/CommonGraph.h>
-#include <rope/IntList.h>
-#include <rope/Placeholder.h>
+#include <libra/CommonGraph.h>
+#include <libra/IntList.h>
+#include <libra/Placeholder.h>
 
 #include "SparseMatrix.h"
 
@@ -14,8 +14,8 @@ namespace spandex
 	class EliminationGraph
 	{
 	private:
-		rope::CommonGraph<rope::Placeholder> adj;
-		rope::IntList list;
+		libra::CommonGraph<libra::Placeholder> adj;
+		libra::IntList list;
 		std::vector<int> size;
 
 	public:
@@ -48,8 +48,8 @@ namespace spandex
 				{
 					int i = list.Pop();
 
-					adj.Insert(i, j, rope::Placeholder());
-					adj.Insert(j, i, rope::Placeholder());
+					adj.Insert(i, j, libra::Placeholder());
+					adj.Insert(j, i, libra::Placeholder());
 
 					size[i] += 1;
 					size[j] += 1;
@@ -104,7 +104,7 @@ namespace spandex
 				adj.RemoveFrom(i);
 				while (!list.IsEmpty())
 				{
-					adj.Insert(i, list.Pop(), rope::Placeholder());
+					adj.Insert(i, list.Pop(), libra::Placeholder());
 				}
 			}
 

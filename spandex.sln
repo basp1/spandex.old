@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spandex", "spandex.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{6E481F22-1799-4C1D-927F-8A4974A8CFD4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rope", "extern\rope\rope.vcxproj", "{37B57F9C-0BD3-44E6-BE8D-9C0F447D1E03}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libra", "extern\libra\libra.vcxproj", "{37B57F9C-0BD3-44E6-BE8D-9C0F447D1E03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
