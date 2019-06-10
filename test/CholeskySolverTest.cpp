@@ -449,11 +449,11 @@ namespace spandex::test
 
 			SparseArray<double> mod(3, { {2, 1.0} });
 
-			solver.Update(mod, 9);
+			auto u = solver.Update(mod, 9);
 
-			auto u = solver.Downdate(mod, 9);
+			auto d = solver.Downdate(mod, 9);
 
-			double diff = SquareDiff(x, u);
+			double diff = SquareDiff(x, d);
 			Assert::AreEqual(0, diff, 1e-8);
 		}
 

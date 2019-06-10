@@ -42,7 +42,7 @@ namespace spandex
 			{
 				if (a.columns[j] == a.columns[j + 1])
 				{
-					std::runtime_error("should be positive defined");
+					throw std::runtime_error("should be positive defined");
 				}
 				int k = a.columns[j];
 
