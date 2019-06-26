@@ -2,7 +2,7 @@
 Fast and simple sparse matrix library
 
 ```c++
-rope::CommonGraph<double> g(3);
+spandex::misc::CommonGraph<double> g(3);
 g.Insert(0, 1, 1);
 g.Insert(0, 2, 1);
 g.Insert(1, 0, 2);
