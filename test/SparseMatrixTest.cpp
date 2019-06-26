@@ -1,9 +1,8 @@
-#include "pch.h"
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-#include <libra/CommonGraph.h>
+#include <spandex/misc/CommonGraph.h>
 #include <spandex/SparseMatrix.h>
 
 namespace spandex::test
@@ -43,7 +42,7 @@ namespace spandex::test
 				std::vector<int>{0, 1, 2, 3, 0, 1, 3, 0, 1, 2, 3},
 				std::vector<int>{10, 11, 12, 13, 20, 21, 23, 30, 31, 32, 33});
 
-			libra::CommonGraph<int> graph(3);
+			misc::CommonGraph<int> graph(3);
 			graph.Insert(0, 0, 10);
 			graph.Insert(0, 1, 11);
 			graph.Insert(0, 2, 12);
@@ -264,7 +263,7 @@ namespace spandex::test
 
 		TEST_METHOD(Add_1)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 1, 5);
 			g.Insert(0, 2, 6);
 			g.Insert(1, 0, 1);
@@ -305,7 +304,7 @@ namespace spandex::test
 
 		TEST_METHOD(Mul_1)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 0, 6);
 			g.Insert(0, 1, -4);
 			g.Insert(0, 2, 7);
@@ -344,7 +343,7 @@ namespace spandex::test
 
 		TEST_METHOD(Mul_2)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 0, 1);
 			g.Insert(0, 2, 3);
 			g.Insert(1, 1, 5);
@@ -379,7 +378,7 @@ namespace spandex::test
 
 		TEST_METHOD(Mul_3)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 0, 1);
 			g.Insert(0, 2, 3);
 			g.Insert(1, 1, 5);
@@ -407,7 +406,7 @@ namespace spandex::test
 
 		TEST_METHOD(Sqr_1)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 1, 1);
 			g.Insert(1, 0, 2);
 			g.Insert(2, 1, 3);
@@ -422,7 +421,7 @@ namespace spandex::test
 
 		TEST_METHOD(Sqr_2)
 		{
-			libra::CommonGraph<double> g(4);
+			misc::CommonGraph<double> g(4);
 			g.Insert(1, 4, 0.02675);
 			g.Insert(2, 0, 0.78664);
 			g.Insert(3, 0, 0.26856);
@@ -459,7 +458,7 @@ namespace spandex::test
 
 		TEST_METHOD(Sqr_3)
 		{
-			libra::CommonGraph<int> g(3);
+			misc::CommonGraph<int> g(3);
 			g.Insert(0, 1, 1);
 			g.Insert(1, 0, 2);
 			g.Insert(2, 1, 3);
@@ -481,7 +480,7 @@ namespace spandex::test
 
 		TEST_METHOD(Sqr_4)
 		{
-			libra::CommonGraph<double> g(4);
+			misc::CommonGraph<double> g(4);
 			g.Insert(1, 4, 0.02674817948);
 			g.Insert(2, 0, 0.7866442604);
 			g.Insert(3, 0, 0.2685635172);

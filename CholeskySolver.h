@@ -5,7 +5,7 @@
 #include "Permutation.h"
 #include "Normalization.h"
 
-#include <libra/IntList.h>
+#include "misc/IntList.h"
 
 #include <stack>
 #include <vector>
@@ -16,7 +16,7 @@ namespace spandex
 	class CholeskySolver
 	{
 	private:
-		libra::IntList list;
+		misc::IntList list;
 
 		SparseMatrix<T> ata;
 		SparseMatrix<T> ld;
@@ -146,7 +146,7 @@ namespace spandex
 
 			int n = symm.rowCount;
 
-			libra::CommonGraph<T> g(n);
+			misc::CommonGraph<T> g(n);
 			auto it = g.GetIterator();
 
 			std::stack<int> columns;
@@ -262,7 +262,7 @@ namespace spandex
 		{
 			assert(Layout::DefaultLayout == a.layout);
 
-			libra::CommonGraph<T> g(a.columnCount, a.columnCount);
+			misc::CommonGraph<T> g(a.columnCount, a.columnCount);
 			list.Clear();
 
 			for (int j = 0; j < a.columnCount; j++)

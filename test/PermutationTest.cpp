@@ -1,9 +1,8 @@
-#include "pch.h"
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-#include <libra/CommonGraph.h>
+#include <spandex/misc/CommonGraph.h>
 #include <spandex/SparseMatrix.h>
 #include <spandex/Permutation.h>
 
@@ -19,7 +18,7 @@ namespace spandex::test
 
 		TEST_METHOD(AMD_1)
 		{
-			libra::CommonGraph<double> g(3);
+			misc::CommonGraph<double> g(3);
 			g.Insert(0, 0, 6);
 			g.Insert(0, 1, -4);
 			g.Insert(0, 2, 7);
@@ -47,7 +46,7 @@ namespace spandex::test
 
 		TEST_METHOD(AMD_2)
 		{
-			libra::CommonGraph<double> g(5);
+			misc::CommonGraph<double> g(5);
 			g.Insert(0, 0, 0.44561);
 			g.Insert(0, 1, 0.92962);
 			g.Insert(3, 1, 0.87043);

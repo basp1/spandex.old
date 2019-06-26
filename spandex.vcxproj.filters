@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headers\misc">
+      <UniqueIdentifier>{1ed9d785-b567-4a68-861b-b5cc2e17e918}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CholeskySolver.h">
@@ -32,6 +35,30 @@
     </ClInclude>
     <ClInclude Include="SparseArray.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\CommonGraph.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\DirectedGraph.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\FlatMap.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\IntList.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\Placeholder.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\PriorityQueue.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\Range.h">
+      <Filter>Headers\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\SegmentTree.h">
+      <Filter>Headers\misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

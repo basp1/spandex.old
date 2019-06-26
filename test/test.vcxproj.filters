@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Sources\misc">
+      <UniqueIdentifier>{af0dd15a-4263-47a8-b42c-80811a034a1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="CholeskySolverTest.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -30,10 +30,26 @@
     <ClCompile Include="SparseArrayTest.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
+    <ClCompile Include="misc\CommonGraphTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\DirectedGraphTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\FlatMapTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\IntListTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\PriorityQueueTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\RangeTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\SegmentTreeTest.cpp">
+      <Filter>Sources\misc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -91,6 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,6 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,6 +148,14 @@
   <ItemGroup>
     <ClInclude Include="CholeskySolver.h" />
     <ClInclude Include="EliminationGraph.h" />
+    <ClInclude Include="misc\CommonGraph.h" />
+    <ClInclude Include="misc\DirectedGraph.h" />
+    <ClInclude Include="misc\FlatMap.h" />
+    <ClInclude Include="misc\IntList.h" />
+    <ClInclude Include="misc\Placeholder.h" />
+    <ClInclude Include="misc\PriorityQueue.h" />
+    <ClInclude Include="misc\Range.h" />
+    <ClInclude Include="misc\SegmentTree.h" />
     <ClInclude Include="Normalization.h" />
     <ClInclude Include="Permutation.h" />
     <ClInclude Include="SparseArray.h" />
