@@ -67,7 +67,7 @@ namespace spandex::misc
 			return Iterator(*this);
 		}
 
-		bool HasConnections(const int& vertex)
+		bool HasConnections(int vertex)
 		{
 			assert(vertex >= 0 && vertex < (int)start.size());
 
@@ -139,7 +139,7 @@ namespace spandex::misc
 			return true;
 		}
 
-		void Insert(const int& from, const int& to, const T& edge)
+		void Insert(int from, int to, const T& edge)
 		{
 			assert(from >= 0 && from < (int)start.size());
 			assert(to >= 0);
@@ -171,7 +171,7 @@ namespace spandex::misc
 			size += 1;
 		}
 
-		void InsertOrAssign(const int& from, const int& to, const T& edge)
+		void InsertOrAssign(int from, int to, const T& edge)
 		{
 			assert(from >= 0 && from < (int)start.size());
 			assert(to >= 0);
@@ -182,7 +182,7 @@ namespace spandex::misc
 			}
 		}
 
-		void RemoveFrom(const int& from, const int& to)
+		void RemoveFrom(int from, int to)
 		{
 			assert(from >= 0 && from < (int)start.size());
 			assert(to >= 0);
@@ -228,7 +228,7 @@ namespace spandex::misc
 			size -= 1;
 		}
 
-		void RemoveFrom(const int& vertex)
+		void RemoveFrom(int vertex)
 		{
 			assert(vertex >= 0 && vertex < (int)start.size());
 
@@ -338,7 +338,7 @@ namespace spandex::misc
 				next = NIL;
 			}
 
-			void Setup(const int& start)
+			void Setup(int start)
 			{
 				if (!graph.HasConnections(start))
 				{
